@@ -20,7 +20,7 @@ I'll first break down the graph problem and understand its parts regarding the s
 
 ---
 
-## Entry 2 – [May 14, 2026]: [Finished Part 2, starting part 3]
+## Entry 2 – [May 14, 2026]: [Finished Part 2]
 
 > Required. At least one entry must describe a bug, wrong assumption, or design change
 > you encountered. Describe what went wrong and how you resolved it.
@@ -29,9 +29,9 @@ I followed the assignment guidelines and filled in the corresponding parts in th
 
 ---
 
-## Entry 3 – [Date]: [Short description]
+## Entry 3 – [5/14/26]: [Parts 3-5]
 
-_Your entry here._
+I got mixed up a bit from the wording at part 5. I noticed some contradictions in the torchbearer.py and the readme, where it wanted us to implement relics_remaining, but in the readme 5a it said relics already visited, which would be relics_visited_order. Thankfully, I checked the class discord hw help section and saw someone else had the same confusion and turns out it didn't matter since both work. I chose to stick with using relics_remaining since it was the structure already in torchbearer.py for recursive search.
 
 ---
 
@@ -52,9 +52,9 @@ _Your entry here._
 |---|---|
 | Part 1: Problem Analysis | 1/2 |
 | Part 2: Precomputation Design | 2 |
-| Part 3: Algorithm Correctness | |
-| Part 4: Search Design | |
-| Part 5: State and Search Space | |
+| Part 3: Algorithm Correctness | 1 |
+| Part 4: Search Design | 1/2 |
+| Part 5: State and Search Space | 1 |
 | Part 6: Pruning | |
 | Part 7: Implementation | |
 | README and DEVLOG writing | |

@@ -132,9 +132,9 @@ Shortest path distances obtained from dijkstra ensure that the travel costs betw
 
 | Component | Variable name in code | Data type | Description |
 |---|---|---|---|
-| Current location | | | |
-| Relics already collected | | | |
-| Fuel cost so far | | | |
+| Current location | current_loc | node | where torchbearer is currently located |
+| Relics already collected | relics_remaining | set | set of relics that haven't been visited yet |
+| Fuel cost so far | cost_so_far | float | fuel cost accumlated so far |
 
 ### Part 5b: Data Structure for Visited Relics
 
@@ -142,18 +142,18 @@ Shortest path distances obtained from dijkstra ensure that the travel costs betw
 
 | Property | Your answer |
 |---|---|
-| Data structure chosen | |
-| Operation: check if relic already collected | Time complexity: |
-| Operation: mark a relic as collected | Time complexity: |
-| Operation: unmark a relic (backtrack) | Time complexity: |
-| Why this structure fits | |
+| Data structure chosen | set |
+| Operation: check if relic already collected | Time complexity: O(1) |
+| Operation: mark a relic as collected | Time complexity: O(1) |
+| Operation: unmark a relic (backtrack) | Time complexity: O(1) |
+| Why this structure fits | Since a set is good for tracking relics that still need to be visited and still recursively exploring other orders |
 
 ### Part 5c: Worst-Case Search Space
 
 > Two bullets.
 
-- **Worst-case number of orders considered:** _Your answer (in terms of k)._
-- **Why:** _One-line justification._
+- **Worst-case number of orders considered:** k!
+- **Why:** Might need to check every possible order of k relics before finding the minimum total cost route for fuel.
 
 ---
 

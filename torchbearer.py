@@ -219,10 +219,17 @@ def find_optimal_route(dist_table, spawn, relics, exit_node):
     tuple[float, list[node]]
         (minimum_fuel_cost, ordered_relic_list)
         Returns (float('inf'), []) if no valid route exists.
-
-    TODO
     """
-    pass
+    #set of relics remaining to visit
+    relics_remaining = set(relics)
+
+    #this stores best cost and relic order found so far, initialized to inf at start
+    best = [float('inf'), []]
+
+    #start exploring using recursive search
+    _explore(dist_table, spawn, relics_remaining, [], 0, exit_node, best)
+
+    return best[0], best[1]
 
 
 def _explore(dist_table, current_loc, relics_remaining, relics_visited_order,
@@ -247,14 +254,38 @@ def _explore(dist_table, current_loc, relics_remaining, relics_visited_order,
     None
         Updates best in place.
 
-    TODO
     Implement: base case, pruning, recursive case, backtracking.
 
     REQUIRED: Add a 1-2 sentence comment near your pruning condition
     explaining why it is safe (cannot skip the optimal solution).
     This comment is graded.
     """
-    pass
+    #base case, if no more relics left, calc total cost to exit and update best if better
+    if not relics_remaining:
+        #tally up cost to exit from curr location
+        total_cost = cost_so_far + dist_table[current_loc][exit_node]
+
+        #if total cost better than best, update best w/ new cost and relic order
+        if total_cost < best[0]:
+            best[0] = total_cost
+            best[1] = relics_visited_order.copy()
+        return
+    
+    #recursive case, try visiting each remaining relic and explore more
+    for relic in list(relics_remaining):
+        travel_cost = dist_table[current_loc][relic]
+
+        #skip the relic if it isn't reachable from current location
+        if travel_cost == float('inf'):
+            continue
+
+        relics_remaining.remove(relic) #backtracking, remove relic from remaining set
+        relics_visited_order.append(relic) #backtracking, add relic to visited order
+
+        _explore(dist_table, relic, relics_remaining, relics_visited_order, cost_so_far + travel_cost, exit_node, best)
+
+        relics_visited_order.pop() #backtracking, remove relic from visited order
+        relics_remaining.add(relic) #backtracking, add relic back to remaining set
 
 
 # =============================================================================
