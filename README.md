@@ -72,29 +72,32 @@
 > Do not copy the invariant text from the spec.
 
 - **For nodes already finalized (in S):**
-  _Your answer here._
+  - Distance values are already at the shortest since the other edge weights are nonnegative.
+  - Other paths would go through unfinalized nodes that either have equal or larger distance.
 
 - **For nodes not yet finalized (not in S):**
-  _Your answer here._
+  - These are estimated best distances found so far from using paths through finalized nodes.
+  - Can still be improved upon if a shorter distance is found later.
 
 ### Part 3b: Why Each Phase Holds
 
 > One to two bullets per phase. Maintenance must mention nonnegative edge weights.
 
 - **Initialization : why the invariant holds before iteration 1:**
-  _Your answer here._
+  - Source has distance 0, other nodes have inf since no other paths found yet.
+  - Since no nodes are finalized, the invariant holds.
 
 - **Maintenance : why finalizing the min-dist node is always correct:**
-  _Your answer here._
+  - All edge weights are nonnegative, so any other path through an unfinalized node can't be shorter the dist already finalized.
 
 - **Termination : what the invariant guarantees when the algorithm ends:**
-  _Your answer here._
+  - All reachable finalized nodes will have the shortest path distance from the source, and unreachable ones will stay at inf.
 
 ### Part 3c: Why This Matters for the Route Planner
 
 > One sentence connecting correct distances to correct routing decisions.
 
-_Your answer here._
+Shortest path distances obtained from dijkstra ensure that the travel costs between the spawn, relics, and exit are correct, which allows for getting total fuel calculations from relic orders valid.
 
 ---
 
@@ -105,17 +108,18 @@ _Your answer here._
 > State the failure mode. Then give a concrete counter-example using specific node names
 > or costs (you may use the illustration example from the spec). Three to five bullets.
 
-- **The failure mode:** _Your answer here._
-- **Counter-example setup:** _Your answer here._
-- **What greedy picks:** _Your answer here._
-- **What optimal picks:** _Your answer here._
-- **Why greedy loses:** _Your answer here._
+- **The failure mode:** Greedy can fail because going to nearest unvisited relic won't always be the optimal choice for total fuel cost.
+- **Counter-example setup:** (based off spec in assignment) Start S, exit T, Relics: B, C, D. 
+  - S->B=1 is cheapest with cost 1, C and D cost 2.
+- **What greedy picks:** Greedy picks B since cheapest cost.
+- **What optimal picks:** S, B, D, C, T. S->B=1, B->D=1, D->C=1, C->T=1, total cost = 4
+- **Why greedy loses:** Greedy chooses based off immediate cost, which could result in expensive costs later.
 
 ### What the Algorithm Must Explore
 
 > One bullet. Must use the word "order."
 
-- _Your answer here._
+- Must explore different relic order visits since they each can produce different total fuel costs depending on order.
 
 ---
 

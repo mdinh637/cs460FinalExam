@@ -33,14 +33,12 @@ def explain_problem():
         Must match what you wrote in README Part 1.
     """
     return (
-        "- **Why a single shortest-path run from S is not enough:**\n"
-        "It only tells us the cheapest cost from the starting node S (entrance) to each node. This doesn't explicitly determine the actual optimal order we should be visiting the relics before exiting, and could actually prevent a better route/optimal one since it doesn't track costs between relics.\n"
-
-        "- **What decision remains after all inter-location costs are known:**\n"
-        "After they're known, the decision that remains is which relic chamber should be visited in what order starting from a selected first one.\n"
-
-        "- **Why this requires a search over orders (one sentence):**\n"
-        "It requires a search over orders because different orders of visiting chambers result in different total fuel costs, even if all the shortest path distances are known already.\n"
+        "- Why a single shortest-path run from S is not enough:\n"
+        "It only tells us the cheapest cost from the starting node S (entrance) to each node. This doesn't explicitly determine the actual optimal order we should be visiting the relics before exiting, and could actually prevent a better route/optimal one since it doesn't track costs between relics.\n\n"
+        "- What decision remains after all inter-location costs are known:\n"
+        "After they're known, the decision that remains is which relic chamber should be visited in what order starting from a selected first one.\n\n"
+        "- Why this requires a search over orders (one sentence):\n"
+        "It requires a search over orders because different orders of visiting chambers result in different total fuel costs, even if all the shortest path distances are known already.\n\n"
     )
 
 
@@ -153,10 +151,23 @@ def dijkstra_invariant_check():
     str
         Your Part 3 README answers, written as a string.
         Must match what you wrote in README Part 3.
-
-    TODO
     """
-    return "TODO"
+    return (
+        "- For nodes already finalized (in S):\n"
+        "  - Distance values are already at the shortest since the other edge weights are nonnegative.\n"
+        "  - Other paths would go through unfinalized nodes that either have equal or larger distance.\n\n"
+        "- For nodes not yet finalized (not in S):\n"
+        "  - These are estimated best distances found so far from using paths through finalized nodes.\n"
+        "  - Can still be improved upon if a shorter distance is found later.\n\n"
+        "- Initialization : why the invariant holds before iteration 1:\n"
+        "  - Source has distance 0, other nodes have inf since no other paths found yet.\n"
+        "  - Since no nodes are finalized, the invariant holds.\n\n"
+        "- Maintenance : why finalizing the min-dist node is always correct:\n"
+        "  - All edge weights are nonnegative, so any other path through an unfinalized node can't be shorter the dist already finalized.\n\n"
+        "- Termination : what the invariant guarantees when the algorithm ends:\n"
+        "  - All reachable finalized nodes will have the shortest path distance from the source, and unreachable ones will stay at inf.\n\n"
+        "Shortest path distances obtained from dijkstra ensure that the travel costs between the spawn, relics, and exit are correct, which allows for getting total fuel calculations from relic orders valid.\n"
+    )
 
 
 # =============================================================================
@@ -170,10 +181,21 @@ def explain_search():
     str
         Your Part 4 README answers, written as a string.
         Must match what you wrote in README Part 4.
-
-    TODO
     """
-    return "TODO"
+    return (
+        "- The failure mode:\n"
+        "Greedy can fail because going to nearest unvisited relic won't always be the optimal choice for total fuel cost.\n\n"
+        "- Counter-example setup: (based off spec in assignment) Start S, exit T, Relics: B, C, D.\n"
+        "S->B=1 is cheapest with cost 1, C and D cost 2.\n\n"
+        "- What greedy picks:\n"
+        "Greedy picks B since cheapest cost.\n\n"
+        "- What optimal picks:\n"
+        "S, B, D, C, T. S->B=1, B->D=1, D->C=1, C->T=1, total cost = 4\n\n"
+        "- Why greedy loses:\n"
+        "Greedy chooses based off immediate cost, which could result in expensive costs later.\n\n"
+        "- What the Algorithm Must Explore:\n"
+        "Must explore different relic order visits since they each can produce different total fuel costs depending on order.\n"
+    )
 
 
 # =============================================================================
