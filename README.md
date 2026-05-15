@@ -17,13 +17,13 @@
 > per question. Each bullet should be 1-2 sentences max.
 
 - **Why a single shortest-path run from S is not enough:**
-  We want to minimize total distance traveled between relics, which starting from S to the nearest relic could prevent a more optimal route.
+  It only tells us the cheapest cost from the starting node S (entrance) to each node. This doesn't explicitly determine the actual optimal order we should be visiting the relics before exiting, and could actually prevent a better route/optimal one since it doesn't track costs between relics.
 
 - **What decision remains after all inter-location costs are known:**
-  _Your answer here._
+  After they're known, the decision that remains is which relic chamber should be visited in what order starting from a selected first one.
 
 - **Why this requires a search over orders (one sentence):**
-  _Your answer here._
+  It requires a search over orders because different orders of visiting chambers result in different total fuel costs, even if all the shortest path distances are known already.
 
 ---
 
@@ -35,8 +35,8 @@
 
 | Source Node Type | Why it is a source |
 |---|---|
-| _node type_ | _one-line reason_ |
-| _node type_ | _one-line reason_ |
+| S | S is the starting point at entrance and we want to find the shortest path cost from the entrance to each node |
+| R | R is shortest path from the relics (r_i) to other ones using dijkstra to get shortest paths between relics |
 
 ### Part 2b: Distance Storage
 
@@ -44,20 +44,20 @@
 
 | Property | Your answer |
 |---|---|
-| Data structure name | |
-| What the keys represent | |
-| What the values represent | |
-| Lookup time complexity | |
-| Why O(1) lookup is possible | |
+| Data structure name | nested dict |
+| What the keys represent | The outer keys are the the source nodes (spawn/relic) and inner ones are destination nodes |
+| What the values represent | They represent the shortest fuel cost from source node to destination node |
+| Lookup time complexity | O(1) |
+| Why O(1) lookup is possible | Because dictionary key lookups use hash tables which query a constant number of times |
 
 ### Part 2c: Precomputation Complexity
 
 > State the total complexity and show the arithmetic. Two to three lines max.
 
-- **Number of Dijkstra runs:** _your answer_
-- **Cost per run:** _your answer_
-- **Total complexity:** _your answer_
-- **Justification (one line):** _your answer_
+- **Number of Dijkstra runs:** k+1
+- **Cost per run:** O(mlogn)
+- **Total complexity:** O((k+1) * mlogn)
+- **Justification (one line):** Because each dijkstra algorthim run runs once from start node S and also for each of the relic nodes, which we multiply given that each run is independent.
 
 ---
 
@@ -183,4 +183,5 @@ _Your answer here._
 
 > Bullet list. If none beyond lecture notes, write that.
 
-- _Your references here._
+- lecture notes
+- https://stackoverflow.com/questions/37350450/why-is-a-list-access-o1-in-python

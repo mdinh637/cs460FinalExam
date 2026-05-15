@@ -2,8 +2,8 @@
 CS 460 – Algorithms: Final Programming Assignment
 The Torchbearer
 
-Student Name: ___________________________
-Student ID:   ___________________________
+Student Name: Michael Dinh
+Student ID:   132223907
 
 INSTRUCTIONS
 ------------
@@ -31,10 +31,17 @@ def explain_problem():
     str
         Your Part 1 README answers, written as a string.
         Must match what you wrote in README Part 1.
-
-    TODO
     """
-    return "TODO"
+    return (
+        "- **Why a single shortest-path run from S is not enough:**\n"
+        "It only tells us the cheapest cost from the starting node S (entrance) to each node. This doesn't explicitly determine the actual optimal order we should be visiting the relics before exiting, and could actually prevent a better route/optimal one since it doesn't track costs between relics.\n"
+
+        "- **What decision remains after all inter-location costs are known:**\n"
+        "After they're known, the decision that remains is which relic chamber should be visited in what order starting from a selected first one.\n"
+
+        "- **Why this requires a search over orders (one sentence):**\n"
+        "It requires a search over orders because different orders of visiting chambers result in different total fuel costs, even if all the shortest path distances are known already.\n"
+    )
 
 
 # =============================================================================
@@ -53,10 +60,17 @@ def select_sources(spawn, relics, exit_node):
     -------
     list[node]
         No duplicates. Order does not matter.
-
-    TODO
     """
-    pass
+    #list of sources
+    sources = [spawn]
+
+    #adding each relic to the source nodes list
+    for relic in relics:
+        #if relic isn't already in sources list, add it
+        if relic not in sources:
+            sources.append(relic)
+
+    return sources
 
 
 def run_dijkstra(graph, source):
@@ -72,10 +86,33 @@ def run_dijkstra(graph, source):
     dict[node, float]
         Minimum cost from source to every node in graph.
         Unreachable nodes map to float('inf').
-
-    TODO
     """
-    pass
+    #initialize distances for all nodes as inf
+    dist = {u: float('inf') for u in graph}
+
+    #source node starts at distance 0
+    dist[source] = 0
+
+    #priority queue for dijkstra alg, (distance, node)
+    pq = [(0, source)]
+
+    while pq:
+        curr_dist, u = heapq.heappop(pq)
+
+        #if popped distance is worse than current known one, skip it
+        if curr_dist > dist[u]:
+            continue
+
+        #exploring neighbors of current node
+        for v, weight in graph[u]:
+            new_dist = curr_dist + weight
+
+            #if new distance is shorter, update and add to pq
+            if new_dist < dist[v]:
+                dist[v] = new_dist
+                heapq.heappush(pq, (new_dist, v))
+
+    return dist
 
 
 def precompute_distances(graph, spawn, relics, exit_node):
@@ -92,10 +129,17 @@ def precompute_distances(graph, spawn, relics, exit_node):
     dict[node, dict[node, float]]
         Nested structure supporting dist_table[u][v] lookups
         for every source u your design requires.
-
-    TODO
     """
-    pass
+    #calling select_sources for list of spawns and each relics
+    sources = select_sources(spawn, relics, exit_node)
+    #initializing table for distances
+    dist_table = {}
+
+    #run dijkstra for each source and then store them in dist_table
+    for source in sources:
+        dist_table[source] = run_dijkstra(graph, source)
+
+    return dist_table
 
 
 # =============================================================================
