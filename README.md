@@ -163,23 +163,23 @@ Shortest path distances obtained from dijkstra ensure that the travel costs betw
 
 > Three bullets.
 
-- **What is tracked:** _Your answer here._
-- **When it is used:** _Your answer here._
-- **What it allows the algorithm to skip:** _Your answer here._
+- **What is tracked:** Best minimum total fuel cost found so far along with the relic order list that resulted in it.
+- **When it is used:** Used during recursive search to compare current branch with best completed route so far.
+- **What it allows the algorithm to skip:** When a branch cost is at least as much or more than the best route already.
 
 ### Part 6b: Lower Bound Estimation
 
 > Three bullets.
 
-- **What information is available at the current state:** _Your answer here._
-- **What the lower bound accounts for:** _Your answer here._
-- **Why it never overestimates:** _Your answer here._
+- **What information is available at the current state:** current_loc, relics_remaining, cost_so_far, and dist_table which is the precomputed table of distances.
+- **What the lower bound accounts for:** cost_so_far + dist_table[current_loc][exit_node] which is the minimum total cost.
+- **Why it never overestimates:** Because dist_table[current_loc][exit_node] is the precomputed shortest path, so actual remaining cost must be at least that since relics still need to be visited before exiting (so true cost >= lower bound).
 
 ### Part 6c: Pruning Correctness
 
 > One to two bullets. Explain why pruning is safe.
 
-- _Your answer here._
+- If lower_bound is already >= to best route found, cannot produce cheaper route since all edge weights are nonnegative (so pruning it doesn't remove optimal solution).
 
 ---
 

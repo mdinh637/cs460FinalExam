@@ -271,6 +271,14 @@ def _explore(dist_table, current_loc, relics_remaining, relics_visited_order,
             best[1] = relics_visited_order.copy()
         return
     
+    #Pruning condition
+    lower_bound = cost_so_far + dist_table[current_loc][exit_node]
+
+    if lower_bound >= best[0]:
+        #this pruning condition is safe bc the lower bound represents the best possible total cost we could achieve from this point onward (even if we magically visited all remaining relics for free and went straight to the exit). 
+        #if this best case scenario is still worse than the best solution we've already found, then we can skip because it can't be better than the current one.
+        return
+
     #recursive case, try visiting each remaining relic and explore more
     for relic in list(relics_remaining):
         travel_cost = dist_table[current_loc][relic]
@@ -306,10 +314,12 @@ def solve(graph, spawn, relics, exit_node):
     tuple[float, list[node]]
         (minimum_fuel_cost, ordered_relic_list)
         Returns (float('inf'), []) if no valid route exists.
-
-    TODO
     """
-    pass
+    #precompute all the shortest path distances
+    dist_table = precompute_distances(graph, spawn, relics, exit_node)
+
+    #find optimal route
+    return find_optimal_route(dist_table, spawn, relics, exit_node)
 
 
 # =============================================================================

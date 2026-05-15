@@ -35,12 +35,12 @@ I got mixed up a bit from the wording at part 5. I noticed some contradictions i
 
 ---
 
-## Entry 4 – [Date]: Post-Implementation Reflection
+## Entry 4 – [5/14/26]: Post-Implementation Reflection
 
 > Required. Written after your implementation is complete. Describe what you would
 > change or improve given more time.
 
-_Your entry here._
+I would definitely choose to start this earlier so that I wouldn't have to grind for a whole day to get it done. If I had more time, I would probably improve on the pruning logic of my code since it only estimates part of the remaining route cost. Maybe there's a way to get to consider even cheaper options to reduce how many branches it explores overall.
 
 ---
 
@@ -50,12 +50,12 @@ _Your entry here._
 
 | Part | Estimated Hours |
 |---|---|
-| Part 1: Problem Analysis | 1/2 |
+| Part 1: Problem Analysis | 1 |
 | Part 2: Precomputation Design | 2 |
 | Part 3: Algorithm Correctness | 1 |
 | Part 4: Search Design | 1/2 |
 | Part 5: State and Search Space | 1 |
-| Part 6: Pruning | |
-| Part 7: Implementation | |
-| README and DEVLOG writing | |
-| **Total** | |
+| Part 6: Pruning | 1 |
+| Part 7: Implementation | 7-8 hours |
+| README and DEVLOG writing | 2 |
+| **Total** | 8 1/2 |
